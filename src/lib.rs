@@ -1,3 +1,4 @@
+extern crate bigdecimal; 
 pub use bigdecimal::{BigDecimal, ToPrimitive};
 use std::str::FromStr;
 
