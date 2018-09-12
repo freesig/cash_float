@@ -1,0 +1,11 @@
+[package]
+name = "cash_float"
+version = "0.1.0"
+authors = ["Tom Gowan <tomrgowan@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bigdecimal = "0.0.14"
+
+[dev-dependencies]
+rand = "0.5.5"
