@@ -1,65 +1,12 @@
 extern crate cash_float;
-extern crate rand;
 
-use rand::prelude::*;
+mod support;
+
 use std::str::FromStr;
-use cash_float::BigDecimal;
+
+use support::{random_float_string, add, sub, div, mul};
 
 const ACCURACY: usize = 15;
-
-fn random_float_string(length: usize) -> String {
-    let mut rng = thread_rng();
-    // Don't want 0 as first digit
-    let first_d: i32 = rng.gen_range(1, 10);
-    let mut digits = format!("{}", first_d);
-
-    // Create random digits
-    for _i in 0..(length - 1) {
-        let d: i32 = rng.gen_range(0, 10);
-        digits.push_str(&d.to_string());
-    }
-
-    // Add decimal point in random position
-    let point_i = rng.gen_range(1, digits.len() - 1);
-    digits.insert(point_i, '.');
-
-    if rng.gen() {
-        digits = format!("-{}", digits);
-    }
-    digits
-}
-
-fn add(mut a: BigDecimal, b: BigDecimal, m: usize) -> (BigDecimal, BigDecimal) {
-    for _i in 0..m {
-        a += &b;
-        a -= &b;
-    }
-    (a, b)
-}
-
-fn sub(mut a: BigDecimal, b: BigDecimal, m: usize) -> (BigDecimal, BigDecimal) {
-    for _i in 0..m {
-        a -= &b;
-        a += &b;
-    }
-    (a, b)
-}
-
-fn mul(mut a: BigDecimal, b: BigDecimal, m: usize) -> (BigDecimal, BigDecimal) {
-    for _i in 0..m {
-        a *= &b;
-        a = &a / &b;
-    }
-    (a, b)
-}
-
-fn div(mut a: BigDecimal, b: BigDecimal, m: usize) -> (BigDecimal, BigDecimal) {
-    for _i in 0..m {
-        a = &a / &b;
-        a *= &b;
-    }
-    (a, b)
-}
 
 #[test]
 fn take_my_floats() {
